@@ -2,10 +2,10 @@ import React from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
-export class MainView extends React.Component {
+export default class MainView extends React.Component {
 
   constructor() {
-    super();
+    super(); // initializes your component's state 
     this.state = {
       movies: [
         { _id: 1, Title: 'Casino', Description: 'A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive compete against each other over a gambling empire, and over a fast-living and fast-loving socialite.', ImagePath: ''},
@@ -22,18 +22,18 @@ export class MainView extends React.Component {
     });
   }
 
+  // using the ternerary operator with 3 operands (condition, ?, : )
   render() {
     const { movies, selectedMovie } = this.state;
-
-    if (movies.length === 0) return <div className="main-view">This list is empty!</div>;
-
-
+  
+    if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+  
     return (
       <div className="main-view">
         {selectedMovie
-          ? <MovieView movie = {selectedMovie} onBackClick={(newSelectMovie) => { this.setSelectedMovie(newSelectMovie); }} />
+          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
           : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectMovie(movie) }} />
+            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
           ))
         }
       </div>
