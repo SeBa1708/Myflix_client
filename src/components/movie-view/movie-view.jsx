@@ -1,10 +1,14 @@
-import React from 'react';
+import React from 'react'; // it works like a template for creating new components
 
-export class MovieView extends React.Component {
-  render() {
+// Exporting the component makes it avaiable for use by other components 
+
+export class MovieView extends React.Component // creates the component 
+ {
+  render() // it returns the visual representation of the component 
+  {
     const { movie, onBackClick } = this.props;
     return (
-      <div className="movie-view">
+      <div className="movie-view"> 
         <div className="movie-image">
           <img src={movie.ImagePath} />
         </div>
@@ -13,7 +17,7 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Title}</span>
         </div>
         <div className="movie-description">
-          <span className="label">Description: </span>
+          <span className="label">Description: </span> 
           <span className="value">{movie.Description}</span>
         </div>
         <button onClick={() => { onBackClick(null); }}>Back</button>

@@ -29664,8 +29664,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-// it works like a template for creating new components
-// Exporting the component makes it avaiable for use by other components 
 var MovieView = /*#__PURE__*/function (_React$Component) {
   _inherits(MovieView, _React$Component);
 
@@ -29679,8 +29677,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 
   _createClass(MovieView, [{
     key: "render",
-    value: function render() // it returns the visual representation of the component 
-    {
+    value: function render() {
       var _this$props = this.props,
           movie = _this$props.movie,
           onBackClick = _this$props.onBackClick;
@@ -29711,8 +29708,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MovieView;
-}(_react.default.Component // creates the component 
-);
+}(_react.default.Component);
 
 exports.MovieView = MovieView;
 },{"react":"../node_modules/react/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
@@ -29721,7 +29717,7 @@ exports.MovieView = MovieView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.MainView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -29763,8 +29759,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MainView);
 
-    _this = _super.call(this); // initializes your component's state 
-
+    _this = _super.call(this);
     _this.state = {
       movies: [{
         _id: 1,
@@ -29793,8 +29788,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         selectedMovie: newSelectMovie
       });
-    } // using the ternerary operator with 3 operands (condition, ?, : )
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -29805,20 +29799,20 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           selectedMovie = _this$state.selectedMovie;
       if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
-      }, "The list is empty!");
+      }, "This list is empty!");
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
       }, selectedMovie ? /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
-        onBackClick: function onBackClick(newSelectedMovie) {
-          _this2.setSelectedMovie(newSelectedMovie);
+        onBackClick: function onBackClick(newSelectMovie) {
+          _this2.setSelectedMovie(newSelectMovie);
         }
       }) : movies.map(function (movie) {
         return /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
           onMovieClick: function onMovieClick(movie) {
-            _this2.setSelectedMovie(movie);
+            _this2.setSelectMovie(movie);
           }
         });
       }));
@@ -29828,7 +29822,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   return MainView;
 }(_react.default.Component);
 
-exports.default = MainView;
+exports.MainView = MainView;
 },{"react":"../node_modules/react/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -29990,7 +29984,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52457" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49324" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -30167,4 +30161,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
-//# sourceMappingURL=/src.78399e21.js.map
+//# sourceMappingURL=/index.js.map
