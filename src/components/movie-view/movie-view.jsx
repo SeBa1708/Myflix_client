@@ -1,4 +1,5 @@
 import React from 'react'; // it works like a template for creating new components
+import PropTypes from 'prop-types';
 
 // Exporting the component makes it avaiable for use by other components 
 
@@ -25,3 +26,11 @@ export class MovieView extends React.Component // creates the component
     );
   }
 }
+
+MovieView.propTypes = {
+  movie: PropTypes.shape({ // must include an object  
+    Title: PropTypes.string.isRequired,  // the title must be of type string and is required 
+    Description: PropTypes.string.isRequired
+  }).isRequired, 
+  onBackClick: PropTypes.func.isRequired // must contain onMovieClick and it must be a function 
+};
