@@ -1,17 +1,47 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import './login-view.scss';
 
-export function LoginView(props) {
+
+// Use of React hooks with use state, with the consequence that "use state" replaces the keyword "this" entirely
+export function LoginView({
+  onLoggedIn
+}) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+
+    // Prevent page refresh
     e.preventDefault();
-    console.log(username, password);
-    /* Send a request to the server for authentication */
+
+    // Sends a request to the server for authentication
+    axios
+      .post(
+        'https://myflixdb21.herokuapp.com/login',
+        {
+          Username: username,
+          Password: password
+        }
+      )
+      .then(
+        (response) => {
+          const data = response.data;
+          // Send 'username' to onLoggedIn()
+          onLoggedIn(data);
+        }
+      )
+      .catch(
+        (err) => {
+          console.log('User not found.')
+        }
+      );
+  };
+
     /* then call props.onLoggedIn(username) */
     // props.onLoggedIn(username);
-  };
+  /*};*/
 
   return (
     <form>
@@ -28,9 +58,10 @@ export function LoginView(props) {
   );
 }
 
+// Using propTypes to make sure the props have been passed properly in terms of format & completeness
 LoginView.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
-    onLoggedIn: PropTypes.func,
+    onLoggedIn: PropTypes.func, 
     onRegister: PropTypes.func
 };
