@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+// Use of React hooks with use state, with the consequence that "use state" replaces the keyword "this" entirely
 export function RegistrationView(props) {
     const [ username, setUsername ] = useState(''),
         [ password, setPassword ] = useState(''),
@@ -53,6 +54,7 @@ export function RegistrationView(props) {
     );
 }
 
+// Using propTypes to make sure the props have been passed properly in terms of format & completeness
 RegistrationView.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,

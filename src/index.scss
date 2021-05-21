@@ -1,5 +1,12 @@
-$color: steelblue;
+.app-container {
+  text-align: center;
+}
 
-.my-flix {
-  color: $color;
+.navbar-nav {
+  text-align: center;
+}
+
+.navbar-nav a {
+  display: inline-block;
+  text-align: center;
 }

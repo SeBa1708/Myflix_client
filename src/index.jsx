@@ -1,6 +1,9 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react'; 
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
+import Container from 'react-bootstrap/Container';
+import './index.scss';
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
@@ -9,7 +12,12 @@ import './index.scss';
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <MainView />
+      <Container>
+          <nav class="navbar sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Myflix</a>
+          </nav>  
+        <MainView />
+      </Container>  
     );
   }
 }
