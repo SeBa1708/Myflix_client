@@ -52,6 +52,12 @@ export default class MainView extends React.Component {
     });
   }
 
+  onBackClick() {
+    this.setState({
+    selectedMovie: null
+    });
+    }
+
 
   // Component's Props 
   //using the ternerary operator with 3 operands (condition, ? (truthy statement), : (falsy statement) )
@@ -70,7 +76,7 @@ export default class MainView extends React.Component {
         {selectedMovie
           ? (
             <Col md={6}>
-              <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+             <MovieView movie={selectedMovie} onBackClick={() => this.onBackClick()} />
             </Col>
           )
           // Passing a function as a prop called onMovieClick. It has a function with one parameter that represents 

@@ -1,12 +1,14 @@
+body {
+  background-color: grey;
+  color: white
+}
+
 .app-container {
+  padding-top: 1cm;
   text-align: center;
 }
 
-.navbar-nav {
+.appname {
   text-align: center;
-}
-
-.navbar-nav a {
-  display: inline-block;
-  text-align: center;
+  color: white
 }
