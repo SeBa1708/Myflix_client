@@ -46,9 +46,30 @@ export default class MainView extends React.Component {
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
-  onLoggedIn(user) {
-    this.setState({
-      user
+//  src/components/main-view/main-view.jsx
+  onLoggedIn(authData) {
+  console.log(authData);
+  this.setState({
+    user: authData.user.Username
+  });
+
+  localStorage.setItem('token', authData.token);
+  localStorage.setItem('user', authData.user.Username);
+  this.getMovies(authData.token);
+  } 
+
+  getMovies(token) {
+    axios.get('https://myflixdb21.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 
@@ -83,8 +104,8 @@ export default class MainView extends React.Component {
           // the movie to be set to selectedMovie state.
           // md={3}> means that the whole amount of the movies will be displayed in 3 rows. 
           : movies.map(movie => (
-            <Col md={3}>
-              <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+            <Col md={3} key={movie._id}>
+              <MovieCard movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
             </Col>
           ))
         }

@@ -16,40 +16,30 @@ export function LoginView({
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const handleSubmit = (e) => {
-
-    // Prevent page refresh
-    e.preventDefault();
-
-    // Sends a request to the server for authentication
-    axios
-      .post(
-        'https://myflixdb21.herokuapp.com/login',
-        {
-          Username: username,
-          Password: password
-        }
-      )
-      .then(
-        (response) => {
-          const data = response.data;
-          // Send 'username' to onLoggedIn()
-          onLoggedIn(data);
-        }
-      )
-      .catch(
-        (err) => {
-          console.log('User not found.')
-        }
-      );
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  /* Send a request to the server for authentication */
+  axios.post('https://myflixdb21.herokuapp.com/login', {
+    Username: username,
+    Password: password
+  })
+  .then(response => {
+    const data = response.data;
+    props.onLoggedIn(data);
+  })
+  .catch(e => {
+    console.log('no such user')
+  });
+};
 
     /* then call props.onLoggedIn(username) */
     // props.onLoggedIn(username);
   /*};*/
 
   return (
-    <Form className="Form">
+    <Row className="main-view justify-content-md-center">
+    <Col md={6} className="mx-1">
+      <Form className="Form">
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control type="text" placeholder="Enter username" value = {username}
@@ -69,7 +59,9 @@ export function LoginView({
       <Button variant="warning" type="submit" 
      onClick={handleSubmit}>Submit
       </Button>
-  </Form>
+    </Form>
+    </Col>
+    </Row>
 );
 }
 
