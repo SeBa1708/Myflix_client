@@ -1,5 +1,14 @@
-$color: steelblue;
+body {
+  background-color: grey;
+  color: white
+}
 
-.my-flix {
-  color: $color;
+.app-container {
+  padding-top: 1cm;
+  text-align: center;
+}
+
+.appname {
+  text-align: center;
+  color: white
 }

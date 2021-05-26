@@ -1,43 +1,115 @@
+// Importing frameworks and libraries
 import React from 'react';
+import axios from 'axios'; // using axios to fetch data from API 
+import Row from 'react-bootstrap/Row'; // using React Bootstrap to render properly 
+import Col from 'react-bootstrap/Col'; // using React Bootstrap to render properly 
+import './main-view.scss';
+
+// Importing components 
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import {RegistrationView} from '../registration-view/registration-view'
 
 export default class MainView extends React.Component {
 
+  // Components stats 
+  // Using the constructor method to create and initialize objects
   constructor() {
     super(); // initializes your component's state 
     this.state = {
-      movies: [
-        { _id: 1, Title: 'Casino', Description: 'A tale of greed, deception, money, power, and murder occur between two best friends: a mafia enforcer and a casino executive compete against each other over a gambling empire, and over a fast-living and fast-loving socialite.', ImagePath: ''},
-        { _id: 2, Title: 'Get out', Description: 'A young African-American visits his white girlfriends parents for the weekend, where his simmering uneasiness about their reception of him eventually reaches a boiling point.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BMjUxMDQwNjcyNl5BMl5BanBnXkFtZTgwNzcwMzc0MTI@._V1_UX182_CR0,0,182,268_AL_.jpg'},
-        { _id: 3, Title: 'Trainspotting', Description: 'Renton, deeply immersed in the Edinburgh drug scene, tries to clean up and get out, despite the allure of the drugs and influence of friends.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BMzA5Zjc3ZTMtMmU5YS00YTMwLWI4MWUtYTU0YTVmNjVmODZhXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg'}
-      ],
-      selectedMovie: null
-    };
+      movies: [],
+      selectedMovie: null, 
+      user: null
+    }
+  } 
+
+  // componentDidMount() is a good place to add code for performing async tasks
+  componentDidMount(){
+    axios.get('https://myflixdb21.herokuapp.com/movies')
+      .then(response => {
+        this.setState({ // changes the state of movies
+          movies: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
+  // This.setState is needed to a change a state
   setSelectedMovie(newSelectMovie) {
     this.setState({
       selectedMovie: newSelectMovie
     });
   }
 
-  // using the ternerary operator with 3 operands (condition, ?, : )
+  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
+
+//  src/components/main-view/main-view.jsx
+  onLoggedIn(authData) {
+  console.log(authData);
+  this.setState({
+    user: authData.user.Username
+  });
+
+  localStorage.setItem('token', authData.token);
+  localStorage.setItem('user', authData.user.Username);
+  this.getMovies(authData.token);
+  } 
+
+  getMovies(token) {
+    axios.get('https://myflixdb21.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  onBackClick() {
+    this.setState({
+    selectedMovie: null
+    });
+    }
+
+
+  // Component's Props 
+  //using the ternerary operator with 3 operands (condition, ? (truthy statement), : (falsy statement) )
+  // displaying the movies and selected movie
+  
   render() {
-    const { movies, selectedMovie } = this.state;
-  
-    if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
-  
+
+    const { movies, selectedMovie, user } = this.state;
+
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (movies.length === 0) return <div className="main-view" />;
+
+    // Here, the md breakpoint is used, which means that if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. 
     return (
-      <div className="main-view">
+      <Row className="main-view justify-content-md-center">
         {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          ? (
+            <Col md={6}>
+             <MovieView movie={selectedMovie} onBackClick={() => this.onBackClick()} />
+            </Col>
+          )
+          // Passing a function as a prop called onMovieClick. It has a function with one parameter that represents 
+          // the movie to be set to selectedMovie state.
+          // md={3}> means that the whole amount of the movies will be displayed in 3 rows. 
           : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
+            <Col md={3} key={movie._id}>
+              <MovieCard movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+            </Col>
           ))
         }
-      </div>
-    );
+      </Row>
+    );  
   }
 }
-

@@ -1,15 +1,24 @@
-import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react'; 
+import './index.scss';
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
-
-// Import statement to indicate that you need to bundle `./index.scss`
-import './index.scss';
+import Container from 'react-bootstrap/Container';
+import { Nav } from 'react-bootstrap';
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <MainView />
+      <Container>
+        <nav className="navbar sticky-top navbar-dark bg-dark justify-content-center">
+          <a className="navbar-brand" href="#">
+            <div className = "appname" >
+              <h1>Myflix_21</h1> </div>
+          </a>
+        </nav>  
+        <MainView />
+     </Container>  
     );
   }
 }
