@@ -33,6 +33,14 @@ body {
 .formUsername {
   color: black;
 }
+
+.Form {
+  padding-top: 20%;
+}
+
+.form_Pw {
+  padding-top: 5%;
+}
 .movie-card {
   background-color: black;
 }

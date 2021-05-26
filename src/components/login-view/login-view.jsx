@@ -25,7 +25,7 @@ const handleSubmit = (e) => {
   })
   .then(response => {
     const data = response.data;
-    props.onLoggedIn(data);
+    onLoggedIn(data);
   })
   .catch(e => {
     console.log('no such user')
@@ -38,19 +38,14 @@ const handleSubmit = (e) => {
 
   return (
     <Row className="main-view justify-content-md-center">
-    <Col md={6} className="mx-1">
+    <Col md={6} className="px-2">
       <Form className="Form">
       <Form.Group controlId="formUsername">
-        <Form.Label>Username</Form.Label>
         <Form.Control type="text" placeholder="Enter username" value = {username}
         onChange={ e => setUsername(e.target.value) } />
-        <Form.Text className="text-muted">
-        We'll never share your email with anyone else.
-        </Form.Text>
       </Form.Group>
   
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password</Form.Label>
+      <Form.Group className="form_Pw" controlId="formPassword">
         <Form.Control type="password" placeholder="Password" value = {password} onChange={ e => setPassword(e.target.value) } />
       </Form.Group>
       <Form.Group controlId="formBasicCheckbox">
