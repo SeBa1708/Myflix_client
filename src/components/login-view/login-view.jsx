@@ -10,12 +10,21 @@ import Col from 'react-bootstrap/Col';
 
 
 // Use of React hooks with use state, with the consequence that "use state" replaces the keyword "this" entirely
+/* First, you call the useState() method (imported from React) with an empty string. This is the initial value of your login variable. 
+This method returns an array that you destructure (break down into variables) using the const [ username, setUsername ] syntax.
+
+This assigns the current value to the username variable—what was initially given to the useState() method, in your case, 
+an empty string—and assigns to the setUsername variable a method to update the username variable. 
+What’s cool about useState() is that it creates a local state and preserves it between the render cycles, 
+giving you one of the biggest advantages of declaring a class component without having to actually declare it.
+*/
 export function LoginView({
   onLoggedIn
 }) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+// Making a request to the API using the axios library 
 const handleSubmit = (e) => {
   e.preventDefault();
   /* Send a request to the server for authentication */
@@ -23,6 +32,7 @@ const handleSubmit = (e) => {
     Username: username,
     Password: password
   })
+  // When a user logs in, the props onLoggedIn(data) is passed to the LoginView and triggers the function
   .then(response => {
     const data = response.data;
     onLoggedIn(data);
@@ -31,10 +41,6 @@ const handleSubmit = (e) => {
     console.log('no such user')
   });
 };
-
-    /* then call props.onLoggedIn(username) */
-    // props.onLoggedIn(username);
-  /*};*/
 
   return (
     <Row className="main-view justify-content-md-center">
