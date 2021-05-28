@@ -22,6 +22,12 @@ body {
 .main-view {
   background-color: grey;
 }
+
+h1 {
+  font-size: 38px;
+  text-align: center;
+  color: #FFC107;
+}
 .login-view {
   background-color: grey;
 }

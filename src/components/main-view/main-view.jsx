@@ -13,6 +13,14 @@ import { MovieView } from '../movie-view/movie-view';
 import {RegistrationView} from '../registration-view/registration-view'
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from "../genre-view/genre-view";
+import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -78,6 +86,19 @@ export default class MainView extends React.Component {
   this.getMovies(authData.token);
   } 
 
+  logOut() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+    alert('You have logged out');
+    window.open('/login', '_self');
+  }
+
+
+
   // Already implemented before 
   onRegister(register) {
     this.setState({
@@ -98,6 +119,16 @@ export default class MainView extends React.Component {
 
     return (
       <Router>
+        <Navbar>
+            <Navbar.Brand className="NavbarMaintitle" href="/"> <h1>Myflix</h1></Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse className="justify-content-end">
+              <Nav className="justify-content-end">
+                <Nav.Link>My Account</Nav.Link>
+              </Nav>
+              <Button onClick={() => this.logOut()} variant="secondary">Log Out</Button>
+            </Navbar.Collapse>
+          </Navbar>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
             if (!user) return <Col>

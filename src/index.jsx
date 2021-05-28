@@ -11,12 +11,6 @@ class MyFlixApplication extends React.Component {
   render() {
     return (
       <Container>
-        <nav className="navbar sticky-top navbar-dark bg-dark justify-content-center">
-          <a className="navbar-brand" href="#">
-            <div className = "appname" >
-              <h1>Myflix_21</h1> </div>
-          </a>
-        </nav>  
         <MainView />
      </Container>  
     );
