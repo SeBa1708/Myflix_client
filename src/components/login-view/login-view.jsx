@@ -46,11 +46,17 @@ const handleSubmit = (e) => {
     <Row className="main-view justify-content-md-center">
     <Col md={6} className="px-2">
       <Form className="Form">
-      <Form.Group controlId="formUsername">
+      <Form.Group ClassName="RegiserButtom">
+        <div> <h1>You have no acccount!</h1></div>
+        <Button variant="warning" onClick={ () => window.location.pathname = '/register'}>
+         Register
+        </Button>
+      </Form.Group>
+      <Form.Group className="Submit" controlId="formUsername">
+        <div> <h1>You have an acccount, Log in here!</h1></div>
         <Form.Control type="text" placeholder="Enter username" value = {username}
         onChange={ e => setUsername(e.target.value) } />
       </Form.Group>
-  
       <Form.Group className="form_Pw" controlId="formPassword">
         <Form.Control type="password" placeholder="Password" value = {password} onChange={ e => setPassword(e.target.value) } />
       </Form.Group>
@@ -62,7 +68,7 @@ const handleSubmit = (e) => {
       </Button>
     </Form>
     </Col>
-    </Row>
+    </Row> 
 );
 }
 

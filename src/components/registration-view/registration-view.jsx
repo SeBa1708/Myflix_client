@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 // Use of React hooks with use state, with the consequence that "use state" replaces the keyword "this" entirely
 export function RegistrationView(props) {
@@ -8,12 +9,26 @@ export function RegistrationView(props) {
         [ email, setEmail ] = useState(''),
         [ birthday, setBirthday ] = useState('');
 
-
-    const handleSubmit = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
-        console.log(username, password, email, birthday);
-        props.onLoggedIn(username);
-    }
+            // sends request to server for authentication
+            // entire URL is in package.json under 'proxy' to get past CORS
+        axios.post('https://myflixdb21.herokuapp.com/users', {
+            Username: username,
+            Email: email,
+            Password: password,
+            Birthday: birthday
+            })
+                .then(response => {
+                    const data = response.data;
+                    alert("Registration Successful!")
+                    window.location.pathname = `/login`
+                })
+                .catch(e => {
+                    console.log(e.response)
+                });
+        }; 
+     
 
     return(
         <form>
@@ -49,7 +64,7 @@ export function RegistrationView(props) {
                     onChange={ e => setBirthday(e.target.value) }
                 />
             </label>
-            <button type="submit" onClick={ handleSubmit }>Submit</button>
+            <button type="submit" onClick={ handleRegister }>Submit</button>
         </form>
     );
 }

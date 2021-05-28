@@ -41,6 +41,14 @@ body {
 .form_Pw {
   padding-top: 5%;
 }
+
+.Button_Register {
+  padding-bottom: 10%;
+}
+
+.Submit {
+  padding-top: 20%;
+}
 .movie-card {
   background-color: black;
 }
@@ -54,6 +62,16 @@ h1 {
 
 h2 {
   font-size: 20px;
+}
+.director-view {
+  background-color: red;
+  padding-top: 5%;
+  color: black;
+}
+.genre-view {
+  background-color: red;
+  padding-top: 5%;
+  color: black;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
