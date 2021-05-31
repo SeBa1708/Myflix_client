@@ -3,9 +3,6 @@ import React from 'react';
 import axios from 'axios'; // using axios to fetch data from API 
 import './main-view.scss';
 
-// Import reacte Router to enable navigation between different pages 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
 // Importing components 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -13,6 +10,9 @@ import { MovieView } from '../movie-view/movie-view';
 import {RegistrationView} from '../registration-view/registration-view'
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from "../genre-view/genre-view";
+import {ProfileView} from "../profile-view/profile-view"
+
+// Import Frameworks and Libraries
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -21,12 +21,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from 'react-bootstrap/Button';
-
-
-
-// using bootstrap for rendering, styling and responsiveness 
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col'; 
+
+// Import reacte Router to enable navigation between different pages 
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
+// Importing components 
+
 
 export default class MainView extends React.Component {
 
@@ -41,7 +43,7 @@ export default class MainView extends React.Component {
     }
   } 
 
-  // from 3.6 Refactoring 
+  // makes a get request to heroku
   getMovies(token) {
     axios.get('https://myflixdb21.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
@@ -96,10 +98,7 @@ export default class MainView extends React.Component {
     alert('You have logged out');
     window.open('/login', '_self');
   }
-
-
-
-  // Already implemented before 
+ 
   onRegister(register) {
     this.setState({
       register,
@@ -109,7 +108,7 @@ export default class MainView extends React.Component {
   
   render() {
     // destructure 
-    const { movies, user, movieData } = this.state;
+    const { movies, user, movieData,register } = this.state;
 
     if(window.location.pathname === '/') {
       if(!user) {
@@ -142,9 +141,11 @@ export default class MainView extends React.Component {
               </Col>
             ))
           }} />
+        <Route path="/"/>
           <Route path="/register" render={() => {
-            return <Col>
-          <RegistrationView />
+          if (user) return <Redirect to="/" />
+          return <Col>
+        <RegistrationView />
           </Col>
           }} />
         <Route path="/movies/:movieId" render={({ match, history }) => {
@@ -165,6 +166,12 @@ export default class MainView extends React.Component {
         </Col>
         }} />
         </Row>
+        <Route exact path='/users/:username'
+              render={() => {
+                if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)} />;
+                if (movies.length === 0) return;
+                return <ProfileView movies={movies} />
+              }} />
       </Router>
     );
   }

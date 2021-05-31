@@ -11,9 +11,16 @@ import { Link } from "react-router-dom";
 
 export class MovieView extends React.Component // creates the component 
  {
-  render() // it returns the visual representation of the component 
-  {
+  
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
     const { movie } = this.props;
+
+    if (!movie) return null;
    
     return (
       <Card className="movie-view"> 
