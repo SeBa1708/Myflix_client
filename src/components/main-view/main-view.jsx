@@ -157,13 +157,13 @@ export default class MainView extends React.Component {
         <Route path="/directors/:name" render={({ match, history }) => {
         if (movies.length === 0) return <div className="main-view" />;
         return <Col md={8}>
-        <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+        <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
         </Col>
         }} />
          <Route path="/genres/:name" render={({ match, history }) => {
         if (movies.length === 0) return <div className="main-view" />;
         return <Col md={8}>
-        <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+        <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies}/>
         </Col>
         }} />
         </Row>
@@ -171,7 +171,7 @@ export default class MainView extends React.Component {
               render={() => {
                 if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)} />;
                 if (movies.length === 0) return;
-                return <ProfileView/>
+                return <ProfileView movies={movies}/>
               }} />
       </Router>
     );

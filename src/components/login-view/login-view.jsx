@@ -46,7 +46,7 @@ const handleSubmit = (e) => {
     <Row className="main-view justify-content-md-center">
     <Col md={6} className="px-2">
       <Form className="Form">
-      <Form.Group ClassName="RegiserButtom">
+      <Form.Group className="RegiserButtom">
         <div> <h1>You have no acccount!</h1></div>
         <Button variant="warning" onClick={ () => window.location.pathname = '/register'}>
          Register

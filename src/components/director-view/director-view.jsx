@@ -12,6 +12,8 @@ export class DirectorView extends React.Component // creates the component
     render() // it returns the visual representation of the component 
     {
       const { director, movies } = this.props;
+
+      console.log(movies) // to inspect if movies are not empty. instead of (movies) I can use (this.movies)
       if (!director) return null;
      
       return (
@@ -29,9 +31,12 @@ export class DirectorView extends React.Component // creates the component
             <div className="director-death">
                 <span className="label">Death: </span> <span className ="value">{director.Death} </span>
             </div> 
+            <div className="Movies_Director">
+              <span>Movies from the director</span>
+            </div>
             <div className="d-flex row mp-6 mx-3">
             {movies.map((movie) => {
-              if (movie.Director.Name === director.Director.Name) {
+              if (movie.Director.Name === director.Name) {
                 return (
                   <div key={movie._id}>
                     <Card

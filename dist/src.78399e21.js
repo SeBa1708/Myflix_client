@@ -34290,7 +34290,7 @@ function LoginView(_ref) {
   }, /*#__PURE__*/_react.default.createElement(_Form.default, {
     className: "Form"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
-    ClassName: "RegiserButtom"
+    className: "RegiserButtom"
   }, /*#__PURE__*/_react.default.createElement("div", null, " ", /*#__PURE__*/_react.default.createElement("h1", null, "You have no acccount!")), /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "warning",
     onClick: function onClick() {
@@ -37799,6 +37799,8 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           director = _this$props.director,
           movies = _this$props.movies;
+      console.log(movies); // to inspect if movies are not empty. instead of (movies) I can use (this.movies)
+
       if (!director) return null;
       return /*#__PURE__*/_react.default.createElement(_Card.default, {
         className: "director-view"
@@ -37827,9 +37829,11 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       }, "Death: "), " ", /*#__PURE__*/_react.default.createElement("span", {
         className: "value"
       }, director.Death, " ")), /*#__PURE__*/_react.default.createElement("div", {
+        className: "Movies_Director"
+      }, /*#__PURE__*/_react.default.createElement("span", null, "Movies from the director")), /*#__PURE__*/_react.default.createElement("div", {
         className: "d-flex row mp-6 mx-3"
       }, movies.map(function (movie) {
-        if (movie.Director.Name === director.Director.Name) {
+        if (movie.Director.Name === director.Name) {
           return /*#__PURE__*/_react.default.createElement("div", {
             key: movie._id
           }, /*#__PURE__*/_react.default.createElement(_Card.default, {
@@ -37934,9 +37938,11 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/_react.default.createElement(_Card.default, {
         className: "genre-view"
       }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, genre.Name), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, genre.Description), /*#__PURE__*/_react.default.createElement("div", {
+        className: "Movies_genre"
+      }, /*#__PURE__*/_react.default.createElement("span", null, "Movies from the same genre")), /*#__PURE__*/_react.default.createElement("div", {
         className: "d-flex row mp-6 mx-3"
       }, movies.map(function (movie) {
-        if (movie.Genre.Name === genre.Genre.Name) {
+        if (movie.Genre.Name === genre.Name) {
           return /*#__PURE__*/_react.default.createElement("div", {
             key: movie._id
           }, /*#__PURE__*/_react.default.createElement(_Card.default, {
@@ -38049,12 +38055,15 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var _this2 = this;
 
-      _axios.default.get('https://myflixdb21.herokuapp.com/user', {
+      var username = localStorage.getItem('user');
+
+      _axios.default.get("https://myflixdb21.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // Assign the result to the state
+        console.log(response); // Assign the result to the state
+
         _this2.setState({
           Username: response.data.Username,
           Password: response.data.Password,
@@ -38069,9 +38078,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement(_Card.default, {
-        className: "profile-view"
-      }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Hello ", user.User.Name)));
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "profilview"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default, null, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement("div", {
+        className: "profilview_greeting"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, " Hello ", this.state.Username, " ")))));
     }
   }]);
 
@@ -45687,7 +45698,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/_react.default.createElement(_directorView.DirectorView, {
             director: movies.find(function (m) {
               return m.Director.Name === match.params.name;
-            }).Director
+            }).Director,
+            movies: movies
           }));
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -45703,7 +45715,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/_react.default.createElement(_genreView.GenreView, {
             genre: movies.find(function (m) {
               return m.Genre.Name === match.params.name;
-            }).Genre
+            }).Genre,
+            movies: movies
           }));
         }
       })), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -45716,7 +45729,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             }
           });
           if (movies.length === 0) return;
-          return /*#__PURE__*/_react.default.createElement(_profileView.ProfileView, null);
+          return /*#__PURE__*/_react.default.createElement(_profileView.ProfileView, {
+            movies: movies
+          });
         }
       }));
     }
@@ -52156,7 +52171,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50876" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

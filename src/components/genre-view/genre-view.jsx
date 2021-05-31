@@ -18,9 +18,12 @@ export class GenreView extends React.Component // creates the component
           <Card.Body>
             <Card.Title>{genre.Name}</Card.Title>
             <Card.Text>{genre.Description}</Card.Text>
+            <div className="Movies_genre">
+              <span>Movies from the same genre</span>
+            </div>
             <div className="d-flex row mp-6 mx-3">
             {movies.map((movie) => {
-              if (movie.Genre.Name === genre.Genre.Name) {
+              if (movie.Genre.Name === genre.Name) {
                 return (
                   <div key={movie._id}>
                     <Card

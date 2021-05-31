@@ -31,10 +31,12 @@ export class ProfileView extends React.Component // creates the component
 	}
 
   getUser(token) {
-    axios.get('https://myflixdb21.herokuapp.com/user', {
+    const username = localStorage.getItem('user');
+    axios.get(`https://myflixdb21.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
+      console.log(response);
       // Assign the result to the state
       this.setState({
         Username: response.data.Username,
@@ -50,14 +52,16 @@ export class ProfileView extends React.Component // creates the component
   }
 
   render() {
-
-   
     return (
-      <Card className="profile-view"> 
+    <div className = "profilview">
+      <Card> 
         <Card.Body>
-          <Card.Title>Hello {user.User.Name}</Card.Title>
+          <div className = "profilview_greeting">
+          <Card.Title> Hello {this.state.Username} </Card.Title>
+          </div>
         </Card.Body>
       </Card>
+    </div>  
     );
   }
 }
