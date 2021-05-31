@@ -59,20 +59,6 @@ export default class MainView extends React.Component {
     });
   }
 
-  getUsers(token) {
-    axios.get('https://myflixdb21.herokuapp.com/user', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      // Assign the result to the state
-      this.setState({
-        movies: response.data
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
 
   // 3.6 This method ensures that the user remains on the page visited after the browser has been refreshed. 
   // Every time a user loads the page and the componentDidMount method is called, you check if the user is 

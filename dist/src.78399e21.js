@@ -37986,6 +37986,8 @@ require("./profile-view.scss");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _axios = _interopRequireDefault(require("axios"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -38043,11 +38045,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "getUsers",
-    value: function getUsers(token) {
+    key: "getUser",
+    value: function getUser(token) {
       var _this2 = this;
 
-      axios.get('https://myflixdb21.herokuapp.com/user', {
+      _axios.default.get('https://myflixdb21.herokuapp.com/user', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -38067,9 +38069,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var user = this.props.user;
-      console.log(user);
-      if (!user) return null;
       return /*#__PURE__*/_react.default.createElement(_Card.default, {
         className: "profile-view"
       }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Hello ", user.User.Name)));
@@ -38081,7 +38080,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 );
 
 exports.ProfileView = ProfileView;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./profile-view.scss":"components/profile-view/profile-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/react-bootstrap/esm/Container.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./profile-view.scss":"components/profile-view/profile-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"../node_modules/react-bootstrap/esm/Container.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45539,24 +45538,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
-    }
-  }, {
-    key: "getUsers",
-    value: function getUsers(token) {
-      var _this3 = this;
-
-      _axios.default.get('https://myflixdb21.herokuapp.com/user', {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (response) {
-        // Assign the result to the state
-        _this3.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
     } // 3.6 This method ensures that the user remains on the page visited after the browser has been refreshed. 
     // Every time a user loads the page and the componentDidMount method is called, you check if the user is 
     // logged in (by retrieving this information from localStorage)
@@ -45611,7 +45592,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       // destructure 
       var _this$state = this.state,
@@ -45624,7 +45605,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         if (!user) {
           return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
+              return _this3.onLoggedIn(user);
             }
           });
         }
@@ -45641,7 +45622,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         href: "/users/".concat(user)
       }, "My Account")), /*#__PURE__*/_react.default.createElement(_Button.default, {
         onClick: function onClick() {
-          return _this4.logOut();
+          return _this3.logOut();
         },
         variant: "secondary"
       }, "Log Out"))), /*#__PURE__*/_react.default.createElement(_Row.default, {
@@ -45652,7 +45633,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render() {
           if (!user) return /*#__PURE__*/_react.default.createElement(_Col.default, null, /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
+              return _this3.onLoggedIn(user);
             }
           }), ";");
           if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
@@ -45731,7 +45712,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render() {
           if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(data) {
-              return _this4.onLoggedIn(data);
+              return _this3.onLoggedIn(data);
             }
           });
           if (movies.length === 0) return;
@@ -52175,7 +52156,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61540" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49965" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

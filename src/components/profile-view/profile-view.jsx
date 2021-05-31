@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import './profile-view.scss';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // Exporting the component makes it avaiable for use by other components 
 
@@ -29,7 +30,7 @@ export class ProfileView extends React.Component // creates the component
 		}
 	}
 
-  getUsers(token) {
+  getUser(token) {
     axios.get('https://myflixdb21.herokuapp.com/user', {
       headers: { Authorization: `Bearer ${token}`}
     })
@@ -49,9 +50,7 @@ export class ProfileView extends React.Component // creates the component
   }
 
   render() {
-    const { user } = this.props;
-    console.log(user);
-    if (!user) return null;
+
    
     return (
       <Card className="profile-view"> 
