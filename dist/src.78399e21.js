@@ -38022,11 +38022,49 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
-    _this.state = {};
+    _this.state = {
+      Username: null,
+      Password: null,
+      Email: null,
+      Birthday: null,
+      Favorites: [],
+      validated: null
+    };
     return _this;
   }
 
   _createClass(ProfileView, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        this.getUser(accessToken);
+      }
+    }
+  }, {
+    key: "getUsers",
+    value: function getUsers(token) {
+      var _this2 = this;
+
+      axios.get('https://myflixdb21.herokuapp.com/user', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        _this2.setState({
+          Username: response.data.Username,
+          Password: response.data.Password,
+          Email: response.data.Email,
+          Birthday: response.data.Birthday,
+          Favorites: response.data.Favorites
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var user = this.props.user;
@@ -38034,7 +38072,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       if (!user) return null;
       return /*#__PURE__*/_react.default.createElement(_Card.default, {
         className: "profile-view"
-      }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Hello ", user.Name)));
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Hello ", user.User.Name)));
     }
   }]);
 
@@ -45547,9 +45585,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       //localStorage has a setItem method that accepts two arguments
 
       localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
-      localStorage.setItem('user', authData.user.Password);
-      localStorage.setItem('user', authData.user.Birthday); // this.getMovies(authData) is called and gets the movies from your API once the user is logged in. 
+      localStorage.setItem('user', authData.user.Username); // this.getMovies(authData) is called and gets the movies from your API once the user is logged in. 
       //Note the use of the this keyword, which is a special keyword in JavaScript. this refers to the object itself, in this case, the MainView class.
 
       this.getMovies(authData.token);
@@ -45602,7 +45638,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
         className: "justify-content-end"
       }, /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-        href: "/users/".concat(user.Username)
+        href: "/users/".concat(user)
       }, "My Account")), /*#__PURE__*/_react.default.createElement(_Button.default, {
         onClick: function onClick() {
           return _this4.logOut();
@@ -52139,7 +52175,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62660" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61540" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

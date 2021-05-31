@@ -98,8 +98,6 @@ export default class MainView extends React.Component {
   //localStorage has a setItem method that accepts two arguments
   localStorage.setItem('token', authData.token);
   localStorage.setItem('user', authData.user.Username);
-  localStorage.setItem('user', authData.user.Password);
-  localStorage.setItem('user', authData.user.Birthday);
   // this.getMovies(authData) is called and gets the movies from your API once the user is logged in. 
   //Note the use of the this keyword, which is a special keyword in JavaScript. this refers to the object itself, in this case, the MainView class.
   this.getMovies(authData.token);
@@ -140,7 +138,7 @@ export default class MainView extends React.Component {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Nav className="justify-content-end">
-                <Nav.Link href={`/users/${user.Username}`}>My Account</Nav.Link>
+                <Nav.Link href={`/users/${user}`}>My Account</Nav.Link>
               </Nav>
               <Button onClick={() => this.logOut()} variant="secondary">Log Out</Button>
             </Navbar.Collapse>
