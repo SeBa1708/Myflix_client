@@ -59,6 +59,21 @@ export default class MainView extends React.Component {
     });
   }
 
+  getUsers(token) {
+    axios.get('https://myflixdb21.herokuapp.com/user', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   // 3.6 This method ensures that the user remains on the page visited after the browser has been refreshed. 
   // Every time a user loads the page and the componentDidMount method is called, you check if the user is 
   // logged in (by retrieving this information from localStorage)
@@ -83,6 +98,8 @@ export default class MainView extends React.Component {
   //localStorage has a setItem method that accepts two arguments
   localStorage.setItem('token', authData.token);
   localStorage.setItem('user', authData.user.Username);
+  localStorage.setItem('user', authData.user.Password);
+  localStorage.setItem('user', authData.user.Birthday);
   // this.getMovies(authData) is called and gets the movies from your API once the user is logged in. 
   //Note the use of the this keyword, which is a special keyword in JavaScript. this refers to the object itself, in this case, the MainView class.
   this.getMovies(authData.token);
@@ -123,7 +140,7 @@ export default class MainView extends React.Component {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Nav className="justify-content-end">
-                <Nav.Link>My Account</Nav.Link>
+                <Nav.Link href={`/users/${user.Username}`}>My Account</Nav.Link>
               </Nav>
               <Button onClick={() => this.logOut()} variant="secondary">Log Out</Button>
             </Navbar.Collapse>
@@ -170,9 +187,10 @@ export default class MainView extends React.Component {
               render={() => {
                 if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)} />;
                 if (movies.length === 0) return;
-                return <ProfileView movies={movies} />
+                return <ProfileView/>
               }} />
       </Router>
     );
   }
 }
+

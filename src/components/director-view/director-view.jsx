@@ -11,7 +11,8 @@ export class DirectorView extends React.Component // creates the component
 {
     render() // it returns the visual representation of the component 
     {
-      const { director } = this.props;
+      const { director, movies } = this.props;
+      if (!director) return null;
      
       return (
         <Card className="director-view"> 
@@ -28,8 +29,44 @@ export class DirectorView extends React.Component // creates the component
             <div className="director-death">
                 <span className="label">Death: </span> <span className ="value">{director.Death} </span>
             </div> 
+            <div className="d-flex row mp-6 mx-3">
+            {movies.map((movie) => {
+              if (movie.Director.Name === director.Director.Name) {
+                return (
+                  <div key={movie._id}>
+                    <Card
+                      className="mb-3 mr-2 h-100"
+                      style={{ width: '16rem' }}
+                    >
+                      <Card.Img variant="top" src={movie.ImagePath} />
+                      <Card.Body>
+                        <Link
+                          className="text-muted"
+                          to={`/movies/${movie._id}`}
+                        >
+                          <Card.Title>{movie.Title}</Card.Title>
+                        </Link>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                );
+              }
+            })}
+          </div>
           </Card.Body>
         </Card>
       );
     }
   }
+
+
+DirectorView.propTypes = {
+  Movie: PropTypes.shape({
+    Director: {
+    Name: PropTypes.string.isRequired,
+    Bio: PropTypes.string,
+    Birth: PropTypes.number,
+    Death: PropTypes.number, 
+  }
+})
+};
