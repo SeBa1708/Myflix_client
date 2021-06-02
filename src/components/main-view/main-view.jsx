@@ -84,6 +84,7 @@ export default class MainView extends React.Component {
   //localStorage has a setItem method that accepts two arguments
   localStorage.setItem('token', authData.token);
   localStorage.setItem('user', authData.user.Username);
+  localStorage.setItem('favoriteMovies', authData.user.FavoriteMovies);
   // this.getMovies(authData) is called and gets the movies from your API once the user is logged in. 
   //Note the use of the this keyword, which is a special keyword in JavaScript. this refers to the object itself, in this case, the MainView class.
   this.getMovies(authData.token);

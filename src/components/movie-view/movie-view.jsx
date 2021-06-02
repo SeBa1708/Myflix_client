@@ -17,6 +17,28 @@ export class MovieView extends React.Component // creates the component
     this.state = {};
   }
 
+
+  addFavoriteMovie(movie) {
+    let token = localStorage.getItem("token");
+    let url =
+      "https://myflixdb21.herokuapp.com/users/" +
+      JSON.parse(localStorage.getItem("user")).Username +
+      "/movies/" +
+      movie._id;
+    console.log(token);
+
+    axios
+      .post(url, "", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        // window.open("/", "_self");
+        window.open("/users/" + JSON.parse(localStorage.getItem("user")).Username, "_self");
+        alert("Added to favorites!");
+      });
+  }
+
   render() {
     const { movie } = this.props;
 
@@ -39,6 +61,9 @@ export class MovieView extends React.Component // creates the component
             <Button variant="link">Director</Button>
           </Link></span>
           <span className="value">{movie.Director.Name}</span>
+        </div>
+        <div className="fav_movie">
+          <Button variant="warning" onClick={() => this.addFavoriteMovie(movie)}>Add to favorite movies</Button>
         </div>
         <Link to={'/'}> <Button variant="warning">Back</Button> </Link>
         </Card.Body>
