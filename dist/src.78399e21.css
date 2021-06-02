@@ -22,6 +22,12 @@ body {
 .main-view {
   background-color: grey;
 }
+
+h1 {
+  font-size: 38px;
+  text-align: center;
+  color: #FFC107;
+}
 .login-view {
   background-color: grey;
 }
@@ -33,11 +39,62 @@ body {
 .formUsername {
   color: black;
 }
+
+.Form {
+  padding-top: 20%;
+}
+
+.form_Pw {
+  padding-top: 5%;
+}
+
+.Button_Register {
+  padding-bottom: 10%;
+}
+
+.Submit {
+  padding-top: 20%;
+}
 .movie-card {
   background-color: black;
 }
 .movie-view {
   background-color: black;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 20px;
+}
+.director-view {
+  background-color: red;
+  padding-top: 5%;
+  color: black;
+}
+
+.Movies_Director {
+  text-align: left;
+  font-size: 20px;
+  padding-top: 5%;
+  padding-bottom: 2%;
+}
+.genre-view {
+  background-color: red;
+  padding-top: 5%;
+  color: black;
+}
+
+.Movies_genre {
+  text-align: left;
+  font-size: 20px;
+  padding-top: 5%;
+  padding-bottom: 2%;
+}
+.profilview_greeting {
+  color: black;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
